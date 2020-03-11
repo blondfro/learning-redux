@@ -1,32 +1,47 @@
 import constants from "./constants";
-import { allSkiDays } from "../src/store/reducers/reducers"
+import rootReducer from "../src/store/reducers/reducers"
+import initialState from "../src/initialState";
 
-const state = [
-    {
-        "resort": "Kirkwood",
-        "date": "2016-12-7",
-        "powder": true,
-        "backcountry": false
-    },
-    {
-        "resort": "Boreal",
-        "date": "2016-12-17",
+let state = initialState;
+
+console.log(`
+
+    Initial State
+    ================
+    goal: ${state.goal}
+    resorts: ${JSON.stringify(state.allSkiDays)}
+    fetching: ${state.resortNames.fetching}
+    suggestions: ${JSON.stringify(state.resortNames.suggestions)}
+
+`);
+
+state = rootReducer(state, {
+    type: constants.SET_GOAL,
+    payload: 5
+});
+
+state = rootReducer(state, {
+    type: constants.ADD_DAY,
+    payload: {
+        "resort": "Mt Shasta",
+        "date": "2016-12-21",
         "powder": false,
         "backcountry": true
     }
-];
+});
 
-const action = {
-    type: constants.REMOVE_DAY,
-    payload: "2016-12-17",
-};
-
-const nextState = allSkiDays(state, action);
+state = rootReducer(state, {
+    type: constants.CHANGE_SUGGESTIONS,
+    payload: ["Mt Tallac", "Mt Hood", "Mt Shasta"]
+});
 
 console.log(`
-    
-    initial state: ${JSON.stringify(state)}
-    action: ${JSON.stringify(action)}
-    new state: ${JSON.stringify(nextState)}
+
+    Next State
+    ================
+    goal: ${state.goal}
+    resorts: ${JSON.stringify(state.allSkiDays)}
+    fetching: ${state.resortNames.fetching}
+    suggestions: ${JSON.stringify(state.resortNames.suggestions)}
 
 `);
