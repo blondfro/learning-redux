@@ -3,24 +3,24 @@ import constants from "../../constants";
 export const goal = (state = 10, action) =>
     (action.type === constants.SET_GOAL) ? parseInt(action.payload) : state;
 
-// {
-//     if (action.type === constants.SET_GOAL) {
-//         return parseInt(action.payload);
-//     } else {
-//         return state;
-//     }
-// };
 
 export const skiDay = (state = null, action) =>
     (action.type === constants.ADD_DAY) ? action.payload : state;
 
-// {
-//     if (action.type === constants.ADD_DAY) {
-//         return action.payload;
-//     } else {
-//         return state;
-//     }
-// };
+export const allSkiDays = (state = [], action) => {
+    switch (action.type) {
+        case constants.ADD_DAY:
+            const hasDay = state.some(skiDay => skiDay.date === action.payload.date);
+            return (hasDay)
+                ? state
+                : [...state, skiDay(null, action)]
+                    .sort((a, b) => new Date(b.date) - new Date(a.date));
+        case constants.REMOVE_DAY:
+            return state.filter((skiDay) => skiDay.date !== action.payload);
+        default:
+            return state
+    }
+};
 
 export const errors = (state = [], action) => {
     switch (action.type) {
