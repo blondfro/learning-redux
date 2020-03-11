@@ -1,13 +1,19 @@
 import constants from "./constants";
-import { allSkiDays, goal } from "./initialState";
+import { goal } from "../src/store/reducers/reducers"
+
+const state = 10;
+
+const action = {
+    type: constants.SET_GOAL,
+    payload: 15
+};
+
+const nextState = goal(state, action);
 
 console.log(`
-    Ski Day Counter
-    ================
-    The goal is ${goal} days
-    Initially there are ${allSkiDays.length} ski days in state.
     
-    Constants (actions)
-    -----------------
-    ${Object.keys(constants).join('\n          ')}
+    initial goal: ${state}
+    action: ${JSON.stringify(action)}
+    new goal: ${nextState}
+
 `);
