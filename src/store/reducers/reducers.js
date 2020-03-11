@@ -22,4 +22,14 @@ export const skiDay = (state = null, action) =>
 //     }
 // };
 
+export const errors = (state = [], action) => {
+    switch (action.type) {
+        case constants.ADD_ERROR:
+            return [...state, action.payload];
+        case constants.CLEAR_ERROR:
+            return state.filter((element, i) => i !== action.payload);
+        default:
+            return state;
+    }
 
+};
