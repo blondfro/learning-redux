@@ -31,5 +31,28 @@ export const errors = (state = [], action) => {
         default:
             return state;
     }
+};
 
+export const fetching = (state = false, action) => {
+    switch (action.type) {
+        case constants.FETCH_RESORT_NAMES:
+            return true;
+        case constants.CANCEL_FETCHING:
+            return false;
+        case constants.CHANGE_SUGGESTIONS:
+            return false;
+        default:
+            return state
+    }
+};
+
+export const suggestions = (state = [], action) => {
+    switch (action.type) {
+        case constants.CHANGE_SUGGESTIONS:
+            return action.payload;
+        case constants.CLEAR_SUGGESTIONS:
+            return [];
+        default:
+            return state
+    }
 };
