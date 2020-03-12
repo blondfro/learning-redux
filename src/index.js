@@ -1,24 +1,46 @@
 import constants from "./constants";
-import rootReducer from "../src/store/reducers/reducers"
-import initialState from "../src/initialState";
-import { createStore } from "redux";
+import storeFactory from './store';
 
-const store = createStore(rootReducer, initialState);
+const initialState = (localStorage['redux-store'])
+    ? JSON.parse(localStorage['redux-store'])
+    : {};
 
-const unsubGoalLogger = store.subscribe(() => {
-    console.log("goal: ", store.getState().goal);
+const saveState = () => {
+    const state = JSON.stringify(store.getState());
+    localStorage['redux-store'] = state;
+};
+
+const store = storeFactory(initialState);
+
+store.subscribe(saveState);
+
+store.dispatch({
+    type: constants.ADD_DAY,
+    payload: {
+        "resort": "Mt Hella",
+        "date": "2016-12-29",
+        "powder": true,
+        "backcountry": false
+    }
 });
 
-setInterval(() => {
-    store.dispatch({
-        type: constants.SET_GOAL,
-        payload: Math.floor(Math.random() * 100)
-    })
-}, 250);
+store.dispatch({
+    type: constants.ADD_DAY,
+    payload: {
+        "resort": "Mt Blah",
+        "date": "2016-12-27",
+        "powder": true,
+        "backcountry": false
+    }
+});
 
-setTimeout(() => {
-    unsubGoalLogger();
-}, 3000);
-
-
+store.dispatch({
+    type: constants.ADD_DAY,
+    payload: {
+        "resort": "Mt buda",
+        "date": "2016-12-28",
+        "powder": true,
+        "backcountry": false
+    }
+});
 
