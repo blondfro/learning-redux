@@ -5,7 +5,9 @@ import { createStore } from "redux";
 
 const store = createStore(rootReducer, initialState);
 
-console.log("initial state: ", store.getState());
+store.subscribe(() => {
+    console.log(store.getState());
+});
 
 store.dispatch({
     type: constants.ADD_DAY,
@@ -17,4 +19,3 @@ store.dispatch({
     }
 });
 
-console.log("next state: ", store.getState());
