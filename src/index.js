@@ -5,17 +5,20 @@ import { createStore } from "redux";
 
 const store = createStore(rootReducer, initialState);
 
-store.subscribe(() => {
-    console.log(store.getState());
+const unsubGoalLogger = store.subscribe(() => {
+    console.log("goal: ", store.getState().goal);
 });
 
-store.dispatch({
-    type: constants.ADD_DAY,
-    payload: {
-        "resort": "Mt Shasta",
-        "date": "2016-12-22",
-        "powder": true,
-        "backcountry": false
-    }
-});
+setInterval(() => {
+    store.dispatch({
+        type: constants.SET_GOAL,
+        payload: Math.floor(Math.random() * 100)
+    })
+}, 250);
+
+setTimeout(() => {
+    unsubGoalLogger();
+}, 3000);
+
+
 
