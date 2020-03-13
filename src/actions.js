@@ -1,5 +1,8 @@
 import constants from "./constants";
+import fetch from "isomorphic-fetch";
 import {suggestions} from "./store/reducers/reducers";
+
+
 
 export function addDay(resort, date, powder=false, backcountry=false) {
     return {
@@ -62,5 +65,23 @@ export function randomGoals() {
                 type: constants.CANCEL_FETCHING
             });
         }, 1500);
+    }
+}
+
+export function suggestResortNames(value) {
+    return (dispatch) => {
+        dispatch({
+            type: constants.FETCH_RESORT_NAMES
+        });
+
+        fetch('http://localhost:3333/resorts/' + value)
+            .then(response => response.json())
+            .then(suggestions => {
+                dispatch(changeSuggestions(suggestions))
+            })
+            .catch(error => {
+                dispatch(addError(error));
+                dispatch({type: constants.CANCEL_FETCHING});
+            });
     }
 }

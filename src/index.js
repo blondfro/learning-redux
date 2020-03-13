@@ -4,5 +4,5 @@ import * as actions from './actions';
 const store = storeFactory();
 
 store.dispatch(
-    actions.randomGoals()
+    actions.suggestResortNames("hea")
 );
