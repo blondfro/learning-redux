@@ -16,6 +16,6 @@ const routes = (
         <Route path="*" component={Whoops404}/>
         </Route>
     </Router>
-)
+);
 
 export default routes 
