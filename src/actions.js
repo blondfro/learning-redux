@@ -48,3 +48,19 @@ export function clearSuggestions() {
         type: constants.CHANGE_SUGGESTIONS
     }
 }
+
+export function randomGoals() {
+    return (dispatch, getState) => {
+        if (!getState().resortNames.fetching) {
+            dispatch({
+                type: constants.FETCH_RESORT_NAMES
+            });
+        }
+
+        setTimeout(() => {
+            dispatch({
+                type: constants.CANCEL_FETCHING
+            });
+        }, 1500);
+    }
+}
