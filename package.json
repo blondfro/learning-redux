@@ -5,11 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
+    "suggestions": "babel-node ./server --port 3333 --delay 500",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "James Morris",
   "license": "MIT",
   "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.16.0",
     "babel-core": "^6.18.0",
     "babel-loader": "^6.2.6",
     "babel-preset-latest": "^6.16.0",
