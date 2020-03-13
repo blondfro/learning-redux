@@ -1,27 +1,23 @@
 import SkiDayList from '../ui/SkiDayList'
+import { removeDay } from "../../actions";
+import { connect } from "react-redux";
 
-const sample = [
+const mapStateToProps = (state, props) => (
     {
-    "resort": "Stowe",
-    "date": "2017-1-28",
-    "powder": false,
-    "backcountry": false
-  },
-  {
-    "resort": "Tuckerman's Ravine",
-    "date": "2017-1-31",
-    "powder": false,
-    "backcountry": true
-  },
-  {
-    "resort": "Mad River Glen",
-    "date": "2017-2-12",
-    "powder": true,
-    "backcountry": false
-  }
-]
+        days: state.allSkiDays,
+        filter: props.params.filter
+    }
+);
 
-export default (props) =>
-    <SkiDayList days={sample}
-                filter={props.params.filter}
-                onRemoveDay={date => console.log('remove day on', date)} />
+const mapDispatchToProps = (dispatch) => ({
+   onRemoveDay(date) {
+       removeDay(date)
+   }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SkiDayList)
+
+// export default (props) =>
+//     <SkiDayList days={sample}
+//                 filter={props.params.filter}
+//                 onRemoveDay={date => console.log('remove day on', date)} />
